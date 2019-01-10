@@ -1,1 +1,2 @@
-secret.dat
+lib/**/creds.json
+*.pyc

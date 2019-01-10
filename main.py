@@ -1,5 +1,7 @@
+from lib import reddit
+
 def run():
-    pass
+    reddit.initialize()
 
 if __name__ == "__main__":
     run()
