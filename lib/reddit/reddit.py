@@ -17,10 +17,15 @@ def initialize():
     test_reddit()
     print("initialized PRAW reddit instance for %s" % reddit.user.me())
 
-def test_reddit():
+def test_reddit(errmsg="PRAW reddit instance was not properly initialized"):
     global reddit
-    assert reddit is not None, "PRAW reddit instance was not properly initialized"
+    assert reddit is not None, errmsg
 
 def read_reports_since():
     global reddit
     test_reddit()
+
+    reports = []
+    for item in reddit.subreddit('dallasstars').mod.reports():
+        reports.append(item)
+    return reports

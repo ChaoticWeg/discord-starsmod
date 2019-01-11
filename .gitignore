@@ -1,2 +1,3 @@
-lib/**/creds.json
+lib/**/*.json
+lib/**/*.dat
 *.pyc
