@@ -6,7 +6,7 @@
         {
             "label": "run",
             "type": "shell",
-            "command": "python main.py",
+            "command": "del lib/reddit/known_reports.json; python scrape.py",
             "group": {
                 "kind": "build",
                 "isDefault": true
