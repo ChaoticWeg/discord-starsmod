@@ -1,3 +1,9 @@
+# module data
 lib/**/*.json
 lib/**/*.dat
 *.pyc
+.vscode/.ropeproject
+
+# run data
+new_reports.json
+.webhook
