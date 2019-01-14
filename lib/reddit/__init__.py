@@ -1,1 +1,2 @@
-from .reddit import initialize, read_reports_since
+from .reddit import initialize, get_reports
+from .serialize import SerializableListing
