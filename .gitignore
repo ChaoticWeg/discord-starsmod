@@ -7,3 +7,4 @@ lib/**/*.dat
 # run data
 new_reports.json
 .webhook_*
+*.log
