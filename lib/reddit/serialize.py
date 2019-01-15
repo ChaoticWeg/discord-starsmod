@@ -1,4 +1,5 @@
 import praw
+from datetime import datetime
 
 class SerializableObject:
     """ An object that can be easily converted to a dict and JSON-serialized. """
@@ -21,6 +22,7 @@ class SerializableRedditor(SerializableObject):
         self.comment_karma = redditor.comment_karma
         self.total_karma = self.link_karma + self.comment_karma
         self.created_utc = redditor.created_utc
+        self.timestamp = datetime.fromtimestamp(redditor.created_utc).isoformat()
 
 class SerializableListing(SerializableObject):
     """ A listing that can be JSON-serialized. """
@@ -32,6 +34,7 @@ class SerializableListing(SerializableObject):
         self.num_reports = len(self.mod_reports) + len(self.user_reports)
         self.score = listing.score
         self.created_utc = listing.created_utc
+        self.timestamp = datetime.fromtimestamp(listing.created_utc).isoformat()
 
         if is_comment(listing):
             self.type = "comment"
