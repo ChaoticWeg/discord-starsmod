@@ -1,1 +1,1 @@
-from .data import load, dump
+from .data import load, dump, load_raw
