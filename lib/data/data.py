@@ -17,7 +17,7 @@ def load_raw(filepath):
     result = None
     try:
         with open(filepath, 'r') as infile:
-            result = infile.read()
+            result = infile.readline().strip()
     except FileNotFoundError:
         pass
     return result
