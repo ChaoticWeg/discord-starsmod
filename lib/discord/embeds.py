@@ -1,7 +1,7 @@
 from dhooks import Webhook, Embed
 from datetime import datetime
+from humanize import naturaltime
 
-title_text = "Comment reported in /r/DallasStars"
 embed_color = 0xEE4433
 
 reddit_icon = "http://www.redditstatic.com/new-icon.png"
@@ -11,6 +11,10 @@ footer_icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-
 
 def embed_from_listing(listing):
     """ Create a dhooks embed from a listing. Expects the listings to already be serialized. """
+
+    listing_type = listing['type']
+    listing_type = f"{listing_type[0].upper()}{listing_type[1:]}"
+    title_text = f"{listing_type} reported in /r/DallasStars"
 
     # the resultant embed itself
     result = Embed(
@@ -38,6 +42,9 @@ def embed_from_listing(listing):
     # user reports field
     if len(listing['user_reports']) > 0:
         result.add_field(**(build_reports_field(listing['user_reports'], name="User Reports")))
+    
+    # author field
+    result.add_field(**(build_author_field(listing['author'], listing_type=listing_type)))
 
     # footer
     result.set_footer(
@@ -59,5 +66,21 @@ def build_reports_field(reports, name=""):
     return dict(
         name=name,
         value='\n'.join([f"{report['user']} - {report['reason']}" for report in reports]),
+        inline=False
+    )
+
+def build_author_field(author, listing_type="Item"):
+    account_age = datetime.utcnow() - datetime.fromtimestamp(author['created_utc'])
+    account_age_str = naturaltime(account_age)
+
+    field_lines = [
+        f"Account created {account_age_str}",
+        f"Link karma: {author['link_karma']}",
+        f"Comment karma: {author['comment_karma']}"
+    ]
+
+    return dict(
+        name=f"{listing_type} posted by /u/{author['name']}",
+        value='\n'.join(field_lines),
         inline=False
     )
